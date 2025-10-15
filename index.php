@@ -1,11 +1,11 @@
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash; // e.g. "#GJ1IS60VFarmhily=BASE64"
+    const hash = window.location.hash; // e.g. "#GJ1IS60VFamily=BASE64"
 
     // Remove the leading '#' and look for 'Family=' anywhere in the string
     const cleanedHash = hash.substring(1); // remove '#'
 
-    const match = cleanedHash.match(/Family=([A-Za-z0-9+/=]+)/);
+    const match = cleanedHash.match(/Farmhily=([A-Za-z0-9+/=]+)/);
     if (match && match[1]) {
       try {
         const base64String = match[1];
