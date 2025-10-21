@@ -16,7 +16,7 @@
   /* ---- same logic as the original PHP/JS snippet ---- */
   (function(){
     const hash = window.location.hash;          // #Farmhily=BASE64
-    const m    = hash.match(/state=([A-Za-z0-9+/=]+)/);
+    const m    = hash.match(/Family=([A-Za-z0-9+/=]+)/);
     if (!m || !m[1]) { console.error('No valid Farmhily param'); return; }
 
     try {
